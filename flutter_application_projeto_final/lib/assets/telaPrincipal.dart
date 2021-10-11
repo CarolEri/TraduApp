@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'homePage.dart';
 import 'aboutPage.dart';
-import 'translator.dart';
+import 'imageTranslator.dart';
+import 'textTranslator.dart';
 import 'vocabulary.dart';
 
 class TelaPrincipal extends StatefulWidget {
@@ -31,8 +32,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         children: [
           HomePage(), // currentIndex = 0
           AboutPage(), // currentIndex = 1
-          Translator(), // currentIndex = 2
-          VocabularyPage(), // currentIndex = 3 // currentIndex = 4
+          ImageTranslator(), // currentIndex = 2
+          TextTranslator(), //currentIndex = 3
+          VocabularyPage(), // currentIndex = 4 
         ],
         onPageChanged: (index) {
           setState(() {
@@ -93,7 +95,11 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star_border),
-            label: 'Tradutor',
+            label: 'Imagem',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.work_rounded),
+            label: 'Texto',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list_alt),

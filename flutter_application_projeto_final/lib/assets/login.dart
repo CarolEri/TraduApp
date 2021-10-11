@@ -3,7 +3,7 @@ import 'telaPrincipal.dart';
 
 class LoginPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _LoginPageState();
+  State<StatefulWidget> createState() => _LoginPageState();
 }
 
 // Para controlar se o usuário faz o login ou cadastro
@@ -14,8 +14,8 @@ enum FormType {
 
 class _LoginPageState extends State<LoginPage> {
 
-  final TextEditingController _usernameFilter = new TextEditingController();
-  final TextEditingController _passwordFilter = new TextEditingController();
+  final TextEditingController _usernameFilter = TextEditingController();
+  final TextEditingController _passwordFilter = TextEditingController();
   String _username = "";
   String _password = "";
   FormType _form = FormType.login; 
@@ -54,8 +54,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Container(
+    return Scaffold(
+      body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -65,9 +65,9 @@ class _LoginPageState extends State<LoginPage> {
                 Colors.white,
               ],
             )
-          ),
+        ),
         padding: EdgeInsets.all(50.0),
-        child: new Column(
+        child: Column(
           children: <Widget>[
             _buildTextFields(),
             _buildButtons(),
@@ -78,32 +78,32 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildTextFields() {
-    return new Container(
-      child: new Column(
+    return Container(
+      child: Column(
         children: <Widget>[
-          new Container(
+          Container(
             margin: EdgeInsets.only(left:0, top:0, right:0, bottom:0),
-            child: new Image.asset("images/sakura_tree.png")
+            child: Image.asset("images/sakura_tree.png")
           ),
-          new Container(
-            child: new TextField(
+          Container(
+            child: TextField(
               onChanged: (nomeUsuario){
                 _username = nomeUsuario;
                 print(_username);
               },
               controller: _usernameFilter,
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Nome de Usuário:'
               ),
             ),
           ),
-          new Container(
-            child: new TextField(
+          Container(
+            child: TextField(
               onChanged: (senhaUsuario){
                 _password = senhaUsuario;
               },
               controller: _passwordFilter,
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Senha:'
               ),
               obscureText: true,
@@ -116,45 +116,45 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildButtons() {
     if (_form == FormType.login) {
-      return new Container(
+      return Container(
         margin: EdgeInsets.symmetric(horizontal: 0, vertical: 45),
-        child: new Column(
+        child: Column(
           children: <Widget>[
-            new ElevatedButton(
-              child: new Text('Login'),
+            ElevatedButton(
+              child: Text('Login'),
               onPressed: _loginPressed,
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
               )
             ),
             SizedBox(height: 40),
-            new TextButton(
-              child: new Text('Não possui conta? Clique aqui para se cadastrar.'),
+            TextButton(
+              child: Text('Não possui conta? Clique aqui para se cadastrar.'),
               onPressed: _formChange,
             ),
             SizedBox(height: 15),
-            new TextButton(
-              child: new Text('Esqueceu sua senha?'),
+            TextButton(
+              child: Text('Esqueceu sua senha?'),
               onPressed: _passwordReset,
             )
           ],
         ),
       );
     } else {
-      return new Container(
+      return Container(
         margin: EdgeInsets.symmetric(horizontal: 0, vertical: 45),
-        child: new Column(
+        child: Column(
           children: <Widget>[
-            new ElevatedButton(
-              child: new Text('Crie uma conta!'),
+            ElevatedButton(
+              child: Text('Crie uma conta!'),
               onPressed: _createAccountPressed,
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
               )
             ),
             SizedBox(height: 40),
-            new TextButton(
-              child: new Text('Já possui conta? Clique aqui para fazer o login.'),
+            TextButton(
+              child: Text('Já possui conta? Clique aqui para fazer o login.'),
               onPressed: _formChange,
             )
           ],

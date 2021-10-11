@@ -11,12 +11,19 @@ class HomePage extends StatelessWidget {
       color: Colors.brown.shade200,
       child: Column(
         children: [
-            Text('Tema',
-              style: TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
-              )
-            ),
+          Text('Olá',
+            style: TextStyle(
+              fontSize: 23,
+              fontWeight: FontWeight.bold,
+            )
+          ),
+          SizedBox(height: 20),
+          Text('Utilize os botões abaixo para navegar entre as telas. Se preferir, também pode utilizar os botões localizados na barra de navegação inferior da tela:',
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.normal,
+            )
+          ),
         ],
       ),
     );

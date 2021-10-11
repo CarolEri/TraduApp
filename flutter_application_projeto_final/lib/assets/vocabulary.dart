@@ -25,7 +25,7 @@ class _VocabularyPageState extends State<VocabularyPage> {
       
       body: Container(
         padding: EdgeInsets.all(30),
-        
+        color: Colors.brown.shade200,
         // ---------------- ListView ------------------------------------------------
         
         child: ListView.builder(
@@ -68,6 +68,7 @@ class _VocabularyPageState extends State<VocabularyPage> {
       // ----------------- Adicionar novas tarefas -----------------------------
       
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.grey.shade800,
         child: Icon(Icons.add),
         onPressed: () async {
           await showDialog(

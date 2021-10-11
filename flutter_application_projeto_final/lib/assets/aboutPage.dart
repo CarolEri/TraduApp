@@ -18,7 +18,7 @@ class AboutPage extends StatelessWidget {
               )
             ),
             SizedBox(height: 20),
-            Text('Tradução',
+            Text('Tradução de idiomas estrangeiros para o português.',
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.normal,
@@ -32,7 +32,7 @@ class AboutPage extends StatelessWidget {
               )
             ),
             SizedBox(height: 20),
-            Text('Aplicativo que realiza a tradução de diversos idiomas.',
+            Text('Realizar a tradução de diversos idiomas através de um texto escrito ou do reconhecimento ótico de caracteres contidos em uma imagem.',
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.normal,
