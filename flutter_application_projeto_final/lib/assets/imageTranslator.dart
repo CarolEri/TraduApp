@@ -15,6 +15,8 @@ class _ImageTranslatorState extends State<ImageTranslator> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
+      padding: EdgeInsets.only(top:30, right: 30, bottom: 30, left: 30),
       color: Colors.brown.shade200,
       child: imageFile == null
           ? Container(
@@ -22,6 +24,20 @@ class _ImageTranslatorState extends State<ImageTranslator> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text('Tradutor para Imagens',
+              style: TextStyle(
+                fontSize: 23,
+                fontWeight: FontWeight.bold,
+              )
+            ),
+            SizedBox(height: 20),
+            Text('Utilize os botões abaixo para selecionar uma imagem da sua Galeria ou tire uma nova imagem a partir da câmera do seu smartphone:',
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.normal,
+              )
+            ),
+            SizedBox(height: 60),
             ElevatedButton(                                      
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
@@ -31,9 +47,7 @@ class _ImageTranslatorState extends State<ImageTranslator> {
               },
               child: Text("Escolha uma imagem da Galeria"),
             ),
-            Container(
-              height: 40.0,
-            ),
+            SizedBox(height: 40),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
@@ -42,7 +56,8 @@ class _ImageTranslatorState extends State<ImageTranslator> {
                 _getFromCamera();
               },
               child: Text("Tire uma foto com a Câmera"),
-            )
+            ),
+            SizedBox(height: 240),
           ],
         ),
       ): Container(

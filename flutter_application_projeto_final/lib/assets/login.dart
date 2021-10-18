@@ -83,8 +83,9 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(left:0, top:0, right:0, bottom:0),
-            child: Image.asset("images/sakura_tree.png")
+            child: Image.asset("images/translate.png")
           ),
+          SizedBox(height: 40),
           Container(
             child: TextField(
               onChanged: (nomeUsuario){

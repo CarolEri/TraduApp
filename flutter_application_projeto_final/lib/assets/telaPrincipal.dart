@@ -24,9 +24,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     // ignore: unused_local_variable
     var fixed;
     return Scaffold(
-      //
-      // BODY
-      //
+ 
       body: PageView(
         controller: pageController,
         children: [
@@ -55,7 +53,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
             tooltip: 'Show Snackbar',
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Você tem novas mensagens!')));
+                  const SnackBar(content: Text('Você não possui novas mensagens.')));
             },
           ),
           IconButton(
@@ -94,11 +92,11 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
             label: 'Sobre',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star_border),
+            icon: Icon(Icons.photo),
             label: 'Imagem',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.work_rounded),
+            icon: Icon(Icons.border_color_outlined),
             label: 'Texto',
           ),
           BottomNavigationBarItem(
