@@ -8,14 +8,19 @@ class VocabularyPage extends StatefulWidget {
 }
 
 class _VocabularyPageState extends State<VocabularyPage> {
-  //lista dinâmica para armazenamento das tarefas
+  //lista dinâmica para armazenamento das palavras
   var lista = [];
 
-  //retornar a tarefa adicionada pelo usuário
+  //retornar a palavra adicionada pelo usuário
   var vocab_word = TextEditingController();
 
   @override
   void initState() {
+    lista.add("春: Primavera");
+    lista.add("犬: Cachorro");
+    lista.add("料理: Comida");
+    lista.add("願い: Desejo");
+    lista.add("冬: Inverno");
     super.initState();
   }
 
@@ -34,8 +39,9 @@ class _VocabularyPageState extends State<VocabularyPage> {
 
           itemBuilder: (context, index) {
             return Card(
+              margin: EdgeInsets.only(top:10.0, left: 20.0, right: 20.0, bottom: 10.0),
               color: Colors.grey.shade100,
-              shadowColor: Colors.blue,
+              shadowColor: Colors.grey,
               elevation: 20,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
