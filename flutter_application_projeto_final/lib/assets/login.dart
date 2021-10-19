@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'telaPrincipal.dart';
+import 'register.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -57,14 +58,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.brown.shade100,
-                Colors.white,
-              ],
-            )
+           color: Colors.brown.shade100,
         ),
         padding: EdgeInsets.all(50.0),
         child: Column(
@@ -126,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: _loginPressed,
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               )
             ),
             SizedBox(height: 40),
@@ -151,6 +146,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: _createAccountPressed,
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               )
             ),
             SizedBox(height: 40),
@@ -171,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _createAccountPressed () {
-    
+    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Register()));
   }
 
   void _passwordReset () {

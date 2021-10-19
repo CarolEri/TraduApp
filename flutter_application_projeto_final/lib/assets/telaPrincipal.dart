@@ -58,8 +58,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           ),
           IconButton(
             icon: const Icon(Icons.person),
-            tooltip: 'Show Snackbar',
             onPressed: () {
+              
             },
           ),
         ]

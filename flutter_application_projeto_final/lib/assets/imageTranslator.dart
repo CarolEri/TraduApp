@@ -75,11 +75,9 @@ class _ImageTranslatorState extends State<ImageTranslator> {
       maxWidth: 1800,
       maxHeight: 1800,
     ) as PickedFile;
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
+    setState(() {
+      imageFile = File(pickedFile.path);
+    });
   }
 
   /// Get from Camera
@@ -89,10 +87,8 @@ class _ImageTranslatorState extends State<ImageTranslator> {
       maxWidth: 1800,
       maxHeight: 1800,
     ) as PickedFile;
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
+    setState(() {
+      imageFile = File(pickedFile.path);
+    });
   }
 }
