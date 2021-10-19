@@ -121,16 +121,17 @@ class _RegisterState extends State<Register> {
   // void setState(Null Function() param0) {}
 }
 
-
 Widget makeInput({label,obsureText = false}){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label,style:TextStyle(
+      Text(label,style:
+        TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
           color: Colors.black87
-      ),),
+        ),
+      ),
       SizedBox(height: 5,),
       TextField(
         obscureText: obsureText,
@@ -142,14 +143,13 @@ Widget makeInput({label,obsureText = false}){
             ),
           ),
           border: OutlineInputBorder(
-              borderSide: BorderSide(
-                // color: Colors.grey[400]
-              )
+            borderSide: BorderSide(
+              // color: Colors.grey[400]
+            )
           ),
         ),
       ),
       SizedBox(height: 30,)
-
     ],
   );
   

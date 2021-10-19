@@ -13,7 +13,7 @@ class _TextTranslatorState extends State<TextTranslator> {
   var resultadoTraducao;
   //String dropdownValue;
 
-  static const Map<String, String> lang = {
+  static const Map<String, String> language = {
     "Inglês": "en",
     "Japonês": "jp",
     "Coreano": "kr",
@@ -87,7 +87,7 @@ class _TextTranslatorState extends State<TextTranslator> {
                       // trans();
                     });
                   },
-                  items: lang
+                  items: language
                       .map((string, value) {
                         return MapEntry(
                           string,
@@ -103,8 +103,6 @@ class _TextTranslatorState extends State<TextTranslator> {
               ],
             ),
             SizedBox(height: 20),
-            Text('Texto Traduzido:'),
-            SizedBox(height: 20),
             ElevatedButton(                                      
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
@@ -114,8 +112,15 @@ class _TextTranslatorState extends State<TextTranslator> {
               child: Text("Traduzir"),
             ),
             SizedBox(height: 40),
-            Text(
-              resultadoTraducao == null ? "Por favor, seleicone um idioma!" : resultadoTraducao.toString(),
+            Text('Texto Traduzido:',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )
+            ),
+            SizedBox(height: 20),            
+            Text(              
+              resultadoTraducao == null ? "Nenhuma traução encontrada." : resultadoTraducao.toString(),
               style: TextStyle(
                   fontSize: 17,
                   fontStyle: FontStyle.italic,

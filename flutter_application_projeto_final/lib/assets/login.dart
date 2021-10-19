@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // --------- Abaixo, vou implementar futuramente as lógicas para cada situação ----------------------
+  // --------- -------------------------------- ----------------------
 
   void _loginPressed () {
     Navigator.of(context).push(MaterialPageRoute(builder: (context)=>TelaPrincipal()));

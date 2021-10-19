@@ -10,6 +10,13 @@ class ImageTranslator extends StatefulWidget {
 class _ImageTranslatorState extends State<ImageTranslator> {
   /// Variables
   File? imageFile;
+  var resultadoTraducao;
+
+  static const Map<String, String> language = {
+    "Inglês": "en",
+    "Japonês": "jp",
+    "Coreano": "kr",
+  };
 
   /// Widget
   @override
@@ -57,7 +64,58 @@ class _ImageTranslatorState extends State<ImageTranslator> {
               },
               child: Text("Tire uma foto com a Câmera"),
             ),
-            SizedBox(height: 240),
+            SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text("Selecione um idioma aqui: "),
+                DropdownButton<String>(
+                  //value: dropdownValue,
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: TextStyle(color: Colors.grey.shade800),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.grey.shade800,
+                  ),
+                  onChanged: (newValue) {
+                    setState(() {
+                      // dropdownValue = newValue!;
+                      // trans();
+                    });
+                  },
+                  items: language
+                      .map((string, value) {
+                        return MapEntry(
+                          string,
+                          DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(string),
+                          ),
+                        );
+                      })
+                      .values
+                      .toList(),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Text('Texto Traduzido:',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )
+            ),
+            SizedBox(height: 20),
+            Text(
+              resultadoTraducao == null ? "Nenhuma traução encontrada." : resultadoTraducao.toString(),
+              style: TextStyle(
+                  fontSize: 17,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w500),
+            ),
+            SizedBox(height: 40),
           ],
         ),
       ): Container(
@@ -65,7 +123,8 @@ class _ImageTranslatorState extends State<ImageTranslator> {
           imageFile as File,
           fit: BoxFit.cover,
         ),
-      ));
+        )
+    );
   }
 
   /// Get from gallery

@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
               )
             ),
             SizedBox(height: 20),
-            Text('Utilize os botões abaixo para navegar entre as telas do aplicativo. Se preferir, também pode utilizar os botões localizados na barra de navegação inferior:',
+            Text('Utilize os botões localizados na barra de navegação inferior do aplicativo para acessar as seguintes telas:',
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.normal,
