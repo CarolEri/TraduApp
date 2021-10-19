@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'homePage.dart';
 import 'telaPrincipal.dart';
 import 'register.dart';
+
+void main() {
+  runApp(    
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Translator',
+      initialRoute: 't1',
+      routes: {
+        't1': (context) => LoginPage(),
+        't2': (context) => TelaPrincipal()
+      },
+    ),
+  );
+}
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,8 +28,15 @@ enum FormType {
   register
 }
 
+// Para enviar o nome do usuário para a tela Home
+class Infos{
+  final String username;
+  Infos(this.username);
+}
+
 class _LoginPageState extends State<LoginPage> {
 
+  var username = TextEditingController();
   final TextEditingController _usernameFilter = TextEditingController();
   final TextEditingController _passwordFilter = TextEditingController();
   String _username = "";
@@ -79,31 +101,9 @@ class _LoginPageState extends State<LoginPage> {
             margin: EdgeInsets.only(left:0, top:0, right:0, bottom:0),
             child: Image.asset("images/translate.png")
           ),
-          SizedBox(height: 40),
-          Container(
-            child: TextField(
-              onChanged: (nomeUsuario){
-                _username = nomeUsuario;
-                print(_username);
-              },
-              controller: _usernameFilter,
-              decoration: InputDecoration(
-                labelText: 'Nome de Usuário:'
-              ),
-            ),
-          ),
-          Container(
-            child: TextField(
-              onChanged: (senhaUsuario){
-                _password = senhaUsuario;
-              },
-              controller: _passwordFilter,
-              decoration: InputDecoration(
-                labelText: 'Senha:'
-              ),
-              obscureText: true,
-            ),
-          )
+          SizedBox(height: 20),
+          makeInput(controllerword: username, label: "Nome de Usuário:",obsureText: false),
+          makeInput(label: "Senha:",obsureText: true),
         ],
       ),
     );
@@ -112,17 +112,35 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildButtons() {
     if (_form == FormType.login) {
       return Container(
-        margin: EdgeInsets.symmetric(horizontal: 0, vertical: 45),
+        margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         child: Column(
           children: <Widget>[
+
+            // ------------------- BOTÃO LOGIN -------------------------------------
             ElevatedButton(
               child: Text('Login'),
-              onPressed: _loginPressed,
+              onPressed: (){
+                setState(() {
+
+                    var obj = Infos(
+                      username.text, 
+                    );
+
+                    Navigator.pushNamed(
+                      context, 
+                      't2',
+                      arguments: obj
+                    );
+                    
+                    _loginPressed; 
+                  });
+              },
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
                 padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               )
             ),
+            // ------------------- FIM DBOTÃO LOGIN -------------------------------------
             SizedBox(height: 40),
             TextButton(
               child: Text('Não possui conta? Clique aqui para se cadastrar.'),
@@ -138,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
       );
     } else {
       return Container(
-        margin: EdgeInsets.symmetric(horizontal: 0, vertical: 45),
+        margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         child: Column(
           children: <Widget>[
             ElevatedButton(
@@ -173,6 +191,41 @@ class _LoginPageState extends State<LoginPage> {
   void _passwordReset () {
     
   }
+}
 
+// ---------- Caixas de input -----------------------------------------------
 
+Widget makeInput({controllerword, label,obsureText = false}){
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(label,style:
+        TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          color: Colors.black87
+        ),
+      ),
+      SizedBox(height: 5,),
+      TextField(
+        controller: controllerword,
+        obscureText: obsureText,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 10),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              // color: Colors.grey[400],
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              // color: Colors.grey[400]
+            )
+          ),
+        ),
+      ),
+      SizedBox(height: 30,)
+    ],
+  );
+  
 }

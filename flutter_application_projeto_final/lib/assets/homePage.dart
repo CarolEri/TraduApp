@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'login.dart';
 
 class HomePage extends StatelessWidget {
-  // This widget is the root of your application.
+  
+  
    @override
  Widget build(BuildContext context) {
+
+   final Infos obj = ModalRoute.of(context)!.settings.arguments as Infos;
+
    return Container( 
       padding: EdgeInsets.only(top:50, right: 30, bottom: 30, left: 30),
       color: Colors.brown.shade200,      
       child: Column(          
           children: [
-            Text('Olá',
+            Text('Olá, ' + obj.username, 
               style: TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
