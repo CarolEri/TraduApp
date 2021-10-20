@@ -5,7 +5,7 @@ void main() {
   runApp(    
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Translator',
+      title: 'TraduApp',
       initialRoute: 't1',
       home: LoginPage(),
       routes: {
@@ -103,6 +103,13 @@ class _LoginPageState extends State<LoginPage> {
             child: Image.asset("images/translate.png")
           ),
           SizedBox(height: 20),
+          Text('TraduApp',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              )
+          ),
+          SizedBox(height: 20),
           makeInput(controllerword: username, label: "Nome de Usuário:",obsureText: false),
           makeInput(label: "Senha:",obsureText: true),
         ],
@@ -142,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
               )
             ),
             // ------------------- FIM DBOTÃO LOGIN -------------------------------------
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             TextButton(
               child: Text('Não possui conta? Clique aqui para se cadastrar.'),
               onPressed: _formChange,
@@ -168,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               )
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             TextButton(
               child: Text('Já possui conta? Clique aqui para fazer o login.'),
               onPressed: _formChange,
@@ -228,7 +235,7 @@ class _RegisterState extends State<Register> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SizedBox(height: 30),
+                        SizedBox(height: 20),
                         Text (
                           "Cadastre-se!", style: TextStyle(
                             fontSize: 30,
@@ -241,7 +248,7 @@ class _RegisterState extends State<Register> {
                             fontSize: 17,
                           ),
                         ),
-                        SizedBox(height: 30)
+                        SizedBox(height: 20)
                       ],
                     ),
                     Padding(
@@ -347,7 +354,6 @@ class _RegisterState extends State<Register> {
   
 }
 
-
 // --------------------------------- Caixas de input -----------------------------------------------
 
 Widget makeInput({controllerword, label,obsureText = false}){
@@ -379,7 +385,7 @@ Widget makeInput({controllerword, label,obsureText = false}){
           ),
         ),
       ),
-      SizedBox(height: 30,)
+      SizedBox(height: 20,)
     ],
   );
   

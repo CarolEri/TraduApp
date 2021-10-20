@@ -44,7 +44,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       // ---------------------------------- NAVBAR --------------------------------
       appBar: AppBar(
         backgroundColor: Colors.grey.shade800,
-        title: Text('Translator'),
+        title: Text('TraduApp'),
         // ------------------- LINHA PARA RETIRAR BOTÃO DE 'VOLTAR' ----------------------
         automaticallyImplyLeading: false,
         actions: <Widget>[
