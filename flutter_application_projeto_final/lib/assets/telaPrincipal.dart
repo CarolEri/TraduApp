@@ -102,7 +102,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           BottomNavigationBarItem(
             icon: Icon(Icons.list_alt),
             label: 'Vocabulário',
-          ),          
+          ),
         ],
 
         // Mudança de Tela (Página)

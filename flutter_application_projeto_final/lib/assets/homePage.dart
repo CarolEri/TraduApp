@@ -21,50 +21,67 @@ class HomePage extends StatelessWidget {
               )
             ),
             SizedBox(height: 20),
-            Text('Utilize os botões localizados na barra de navegação inferior do aplicativo para acessar as seguintes telas:',
+            Text('Seja bem-vindo(a) ao TraduApp! Utilize os botões localizados na barra de navegação inferior do aplicativo para acessar as seguintes telas:',
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.normal,
-              )
+              ),
+              textAlign: TextAlign.justify
             ),
             SizedBox(height: 40),
-            ElevatedButton.icon(
-              onPressed: () {},
-              label: Text('Sobre'),
-              icon: Icon(Icons.info),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade800,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            RichText(
+              text: TextSpan(
+                children: [
+                  WidgetSpan(
+                    child: Icon(Icons.photo, size: 18),
+                  ),
+                  TextSpan(
+                    text: " Tela 'Sobre': Conheça mais sobre o TraduApp e sobre a desenvolvedora.",
+                    style: TextStyle(color: Colors.black, fontSize: 18)
+                  )
+                ],
+              ),
+            ),            
+            SizedBox(height: 40),
+            RichText(
+              text: TextSpan(
+                children: [
+                  WidgetSpan(
+                    child: Icon(Icons.photo, size: 18),
+                  ),
+                  TextSpan(
+                    text: " Tela 'Tradução de Imagem': Traduza textos do inglês, japonês ou coreano para o português através do reconhecimento ótico de caracteres contidos em uma imagem.",
+                    style: TextStyle(color: Colors.black, fontSize: 18)
+                  )
+                ],
               ),
             ),
             SizedBox(height: 40),
-            ElevatedButton.icon(
-              onPressed: () {},
-              label: Text('Tradutor de Imagens'),
-              icon: Icon(Icons.photo),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade800,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            RichText(
+              text: TextSpan(
+                children: [
+                  WidgetSpan(
+                    child: Icon(Icons.border_color_outlined, size: 18),
+                  ),
+                  TextSpan(
+                    text: " Tela 'Tradução de Texto': Digite palavras em inglês, japonês ou coreano e traduza para o português.",
+                    style: TextStyle(color: Colors.black, fontSize: 18)
+                  )
+                ],
               ),
             ),
             SizedBox(height: 40),
-            ElevatedButton.icon(
-              onPressed: () {},
-              label: Text('Tradutor de Textos'),
-              icon: Icon(Icons.border_color_outlined),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade800,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              ),
-            ),
-            SizedBox(height: 40),
-            ElevatedButton.icon(
-              onPressed: () {},
-              label: Text('Lista de Vocabulário'),
-              icon: Icon(Icons.list_alt),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade800,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            RichText(
+              text: TextSpan(
+                children: [
+                  WidgetSpan(
+                    child: Icon(Icons.list_alt, size: 18),
+                  ),
+                  TextSpan(
+                    text: " Tela 'Vocabulário': Utilize este espaço para aprender e memorizar novas palavras!",
+                    style: TextStyle(color: Colors.black, fontSize: 18)
+                  )
+                ],
               ),
             ),
           ],               
