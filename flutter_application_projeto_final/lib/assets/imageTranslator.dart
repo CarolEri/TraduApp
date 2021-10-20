@@ -24,7 +24,7 @@ class _ImageTranslatorState extends State<ImageTranslator> {
     return Container(
       
       padding: EdgeInsets.only(top:30, right: 30, bottom: 30, left: 30),
-      color: Colors.brown.shade200,
+      color: Colors.brown.shade100,
       child: imageFile == null
           ? Container(
         alignment: Alignment.center,
@@ -107,15 +107,27 @@ class _ImageTranslatorState extends State<ImageTranslator> {
                 fontWeight: FontWeight.bold,
               )
             ),
-            SizedBox(height: 20),
-            Text(
-              resultadoTraducao == null ? "Nenhuma tradução encontrada." : resultadoTraducao.toString(),
-              style: TextStyle(
-                  fontSize: 17,
+            SizedBox(height: 10),
+            Container(
+              height: 130,
+              width: double.infinity,
+              child: Card(              
+                color: Colors.grey.shade100,
+                shadowColor: Colors.black,
+                elevation: 20,
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                resultadoTraducao == null ? "Nenhuma tradução encontrada." : resultadoTraducao.toString(),
+                style: TextStyle( fontSize: 17,
                   fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 40),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center
+              ),
+              )
+            ),            
           ],
         ),
       ): Container(

@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
 
    return Container( 
       padding: EdgeInsets.only(top:50, right: 30, bottom: 30, left: 30),
-      color: Colors.brown.shade200,      
+      color: Colors.brown.shade100,      
       child: Column(          
           children: [
             Text('Olá, ' + obj.username, 
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
               text: TextSpan(
                 children: [
                   WidgetSpan(
-                    child: Icon(Icons.photo, size: 18),
+                    child: Icon(Icons.info, size: 18),
                   ),
                   TextSpan(
                     text: " Tela 'Sobre': Conheça mais sobre o TraduApp e sobre a desenvolvedora.",

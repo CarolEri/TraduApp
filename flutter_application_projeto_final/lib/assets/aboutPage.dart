@@ -8,7 +8,7 @@ class AboutPage extends StatelessWidget {
     // ------------------ CONTAINER PRINCIPAL --------------------
     return Container(
       padding: EdgeInsets.only(top:50, right: 30, bottom: 30, left: 30),
-      color: Colors.brown.shade200,
+      color: Colors.brown.shade100,
       child: Column(
         children: [
             Text('Tema',

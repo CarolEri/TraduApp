@@ -35,7 +35,7 @@ class _TextTranslatorState extends State<TextTranslator> {
     return Container(
       
       padding: EdgeInsets.only(top:30, right: 30, bottom: 30, left: 30),
-      color: Colors.brown.shade200,
+      color: Colors.brown.shade100,
       child: Container(
         alignment: Alignment.center,
         child: Column(
@@ -47,7 +47,7 @@ class _TextTranslatorState extends State<TextTranslator> {
                 fontWeight: FontWeight.bold,
               )
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             Text('Utilize o campo abaixo para escrever o texto que deseja traduzir:',
               style: TextStyle(
                 fontSize: 17,
@@ -119,14 +119,26 @@ class _TextTranslatorState extends State<TextTranslator> {
               )
             ),
             SizedBox(height: 20),            
-            Text(              
-              resultadoTraducao == null ? "Nenhuma tradução encontrada." : resultadoTraducao.toString(),
-              style: TextStyle(
-                  fontSize: 17,
+            Container(
+              height: 130,
+              width: double.infinity,
+              child: Card(              
+                color: Colors.grey.shade100,
+                shadowColor: Colors.black,
+                elevation: 20,
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                resultadoTraducao == null ? "Nenhuma tradução encontrada." : resultadoTraducao.toString(),
+                style: TextStyle( fontSize: 17,
                   fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w500),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center
+              ),
+              )
             ),
-            SizedBox(height: 40)
           ],
         ),
       ),
