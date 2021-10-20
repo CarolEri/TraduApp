@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'telaPrincipal.dart';
-import 'register.dart';
+
 
 void main() {
   runApp(    
@@ -16,6 +16,8 @@ void main() {
     ),
   );
 }
+
+// ---------------------------- TELA DE LOGIN / USUARIO JÁ EXISTENTE ----------------------------------
 
 class LoginPage extends StatefulWidget {
   @override
@@ -37,32 +39,32 @@ class Infos{
 class _LoginPageState extends State<LoginPage> {
 
   var username = TextEditingController();
-  final TextEditingController _usernameFilter = TextEditingController();
-  final TextEditingController _passwordFilter = TextEditingController();
-  String _username = "";
-  String _password = "";
+  // final TextEditingController _usernameFilter = TextEditingController();
+  // final TextEditingController _passwordFilter = TextEditingController();
+  // String _username = "";
+  // String _password = "";
   FormType _form = FormType.login; 
 
-  _LoginPageState() {
-    _usernameFilter.addListener(_usernameListen);
-    _passwordFilter.addListener(_passwordListen);
-  }
+  // _LoginPageState() {
+  //   _usernameFilter.addListener(_usernameListen);
+  //   _passwordFilter.addListener(_passwordListen);
+  // }
 
-  void _usernameListen() {
-    if (_usernameFilter.text.isEmpty) {
-      _username = "";
-    } else {
-      _username = _usernameFilter.text;
-    }
-  }
+  // void _usernameListen() {
+  //   if (_usernameFilter.text.isEmpty) {
+  //     _username = "";
+  //   } else {
+  //     _username = _usernameFilter.text;
+  //   }
+  // }
 
-  void _passwordListen() {
-    if (_passwordFilter.text.isEmpty) {
-      _password = "";
-    } else {
-      _password = _passwordFilter.text;
-    }
-  }
+  // void _passwordListen() {
+  //   if (_passwordFilter.text.isEmpty) {
+  //     _password = "";
+  //   } else {
+  //     _password = _passwordFilter.text;
+  //   }
+  // }
 
   // Troca dos campos de login e registro
   void _formChange () async {
@@ -133,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                     );
                     
                     _loginPressed; 
-                  });
+                });
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
@@ -193,7 +195,161 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-// ---------- Caixas de input -----------------------------------------------
+// ---------------------------- TELA DE SIGNUP / CADASTRO DE NOVO USUARIO ----------------------------------
+
+class Register extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _RegisterState();
+}
+
+enum Sexo { masculino, feminino }
+
+class _RegisterState extends State<Register> {
+
+  Sexo? _character = Sexo.masculino;
+  var _checkbox = false;
+  var username = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      
+      backgroundColor: Colors.brown.shade100,
+      
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(height: 30),
+                        Text (
+                          "Cadastre-se!", style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          "Preencha os dados abaixo para criar uma conta:",style: TextStyle(
+                            fontSize: 17,
+                          ),
+                        ),
+                        SizedBox(height: 30)
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 40
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          makeInput(controllerword: username, label: "Nome de Usuário:"),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('Sexo:',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.normal,
+                              )
+                            ),
+                          ),
+                          ListTile(
+                            title: const Text('Masculino'),
+                            leading: Radio<Sexo>(
+                              value: Sexo.masculino,
+                              groupValue: _character,
+                              onChanged: (Sexo? value) {
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            ),
+                          ),
+                          ListTile(
+                            title: const Text('Feminino'),
+                            leading: Radio<Sexo>(
+                              value: Sexo.feminino,
+                              groupValue: _character,
+                              onChanged: (Sexo? value) {
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            ),
+                          ),                             
+                          makeInput(label: "Senha:",obsureText: false),
+                          makeInput(label: "Confirme sua Senha:",obsureText: false),
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: _checkbox,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _checkbox = !_checkbox;
+                                  });
+                                },
+                              ),
+                              Text('Concordo com os termos de uso deste aplicativo.'),
+                            ],
+                          ),                          
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(                        
+                        child: ElevatedButton(
+                          child: Text('Registrar'),
+                          onPressed: (){
+                            setState(() {
+
+                                var obj = Infos(
+                                  username.text, 
+                                );
+
+                                Navigator.pushNamed(
+                                  context, 
+                                  't2',
+                                  arguments: obj
+                                );
+                                
+                                _loginPressed; 
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.grey.shade800,
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                          )
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  
+  void _loginPressed () {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>TelaPrincipal()));
+  }
+  
+}
+
+
+// --------------------------------- Caixas de input -----------------------------------------------
 
 Widget makeInput({controllerword, label,obsureText = false}){
   return Column(
