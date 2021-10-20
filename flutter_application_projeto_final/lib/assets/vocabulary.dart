@@ -54,7 +54,7 @@ class _VocabularyPageState extends State<VocabularyPage> {
       
       body: Container(
         padding: EdgeInsets.all(30),
-        color: Colors.brown.shade200,
+        color: Colors.brown.shade100,
         // ---------------- ListView ------------------------------------------------
         
         child: ListView.builder(
@@ -79,16 +79,37 @@ class _VocabularyPageState extends State<VocabularyPage> {
                 ),
                 trailing: IconButton(
                   icon: Icon(Icons.delete_outline),
-                  onPressed: () {
-                    //remover um item da lista
-                    setState(() {
-                      lista.removeAt(index);
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Palavra removida com sucesso!'),
-                        duration: Duration(seconds: 2),
-                      ));
-                    });
-                  },
+                  onPressed: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return SimpleDialog(
+                          title: const Text('Tem certeza que deseja remover esta palavra?'),
+                          children: <Widget>[
+                            SimpleDialogOption(
+                              onPressed: () { 
+                                //remover um item da lista
+                                Navigator.pop(context);
+                                setState(() {
+                                  lista.removeAt(index);
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                    content: Text('Palavra removida com sucesso!'),
+                                    duration: Duration(seconds: 2),
+                                  ));
+                                }); 
+                              },
+                              child: const Text('Sim'),                              
+                            ),
+                            SimpleDialogOption(
+                              onPressed: () { Navigator.pop(context); },
+                              child: const Text('Não'),
+                            ),
+                          ],
+                        );
+                      }
+                    );
+                  }
+                  
                 ),
               ),
             );
