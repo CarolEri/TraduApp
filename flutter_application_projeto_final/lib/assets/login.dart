@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'homePage.dart';
 import 'telaPrincipal.dart';
 import 'register.dart';
 
@@ -9,6 +8,7 @@ void main() {
       debugShowCheckedModeBanner: false,
       title: 'Translator',
       initialRoute: 't1',
+      home: LoginPage(),
       routes: {
         't1': (context) => LoginPage(),
         't2': (context) => TelaPrincipal()
@@ -30,7 +30,7 @@ enum FormType {
 
 // Para enviar o nome do usuário para a tela Home
 class Infos{
-  final String username;
+  String username;
   Infos(this.username);
 }
 

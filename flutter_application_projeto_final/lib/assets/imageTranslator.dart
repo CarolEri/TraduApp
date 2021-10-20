@@ -109,7 +109,7 @@ class _ImageTranslatorState extends State<ImageTranslator> {
             ),
             SizedBox(height: 20),
             Text(
-              resultadoTraducao == null ? "Nenhuma traução encontrada." : resultadoTraducao.toString(),
+              resultadoTraducao == null ? "Nenhuma tradução encontrada." : resultadoTraducao.toString(),
               style: TextStyle(
                   fontSize: 17,
                   fontStyle: FontStyle.italic,

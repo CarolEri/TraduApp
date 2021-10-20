@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flip_card/flip_card.dart';
 
 class VocabularyPage extends StatefulWidget {
   const VocabularyPage({Key? key}) : super(key: key);
@@ -7,15 +8,33 @@ class VocabularyPage extends StatefulWidget {
   _VocabularyPageState createState() => _VocabularyPageState();
 }
 
+class Flashcard {
+  final String cardFront;
+  final String cardBack;
+
+  Flashcard({required this.cardFront, required this.cardBack});
+}
+
+
 class _VocabularyPageState extends State<VocabularyPage> {
-  //lista dinâmica para armazenamento das palavras
+  //lista dinâmica para armazenamento dos flashcards
   var lista = [];
+
+  List<Flashcard> flashcards =[
+    Flashcard(cardFront: "春", cardBack: "Primavera"),
+    Flashcard(cardFront: "犬", cardBack: "Cachorro"),
+    Flashcard(cardFront: "料理", cardBack: "Comida"),
+    Flashcard(cardFront: "願い", cardBack: "Desejo"),
+    Flashcard(cardFront: "冬", cardBack: "Inverno"),
+  ];
+
+  int currentindex = 0;
 
   //retornar a palavra adicionada pelo usuário
   var vocab_word = TextEditingController();
 
   @override
-  void initState() {
+  void initState() {    
     lista.add("春: Primavera");
     lista.add("犬: Cachorro");
     lista.add("料理: Comida");
@@ -38,35 +57,38 @@ class _VocabularyPageState extends State<VocabularyPage> {
           itemCount: lista.length,
 
           itemBuilder: (context, index) {
-            return Card(
+            
+            return Container(
               margin: EdgeInsets.only(top:10.0, left: 20.0, right: 20.0, bottom: 10.0),
               color: Colors.grey.shade100,
-              shadowColor: Colors.grey,
-              elevation: 20,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: ListTile(
-                //leading: Icon(Icons.arrow_right),
-                title: Text(
-                  lista[index],
-                  style: TextStyle(fontSize: 20),
-                ),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete_outline),
-                  onPressed: () {
-                    //remover um item da lista
-                    setState(() {
-                      lista.removeAt(index);
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Palavra removida com sucesso'),
-                        duration: Duration(seconds: 2),
-                      ));
-                    });
-                  },
-                ),
-              ),
-            );
+
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      height: 60,
+                      child: FlipCard(
+                        direction: FlipDirection.VERTICAL, // default
+                        front: Container(
+                            child: Text(
+                              flashcards[index].cardFront,
+                              style: TextStyle(fontSize: 20, color: Colors.black,decorationColor: Colors.red,),
+                            ),
+                  
+                        ),
+                        back: Container(
+                            child: Text(
+                              flashcards[index].cardBack,
+                              style: TextStyle(fontSize: 20, color: Colors.black,decorationColor: Colors.red,),
+                            ),
+                            
+                        ),
+                      )
+                    )
+                  ],
+                )
+              
+            );            
           },
         ),
       ),
