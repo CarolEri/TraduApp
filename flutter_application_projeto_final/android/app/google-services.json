@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "579065411138",
+    "project_id": "traduapp-a8a9a",
+    "storage_bucket": "traduapp-a8a9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579065411138:android:efe4dc8669f775c22e5fdb",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_projeto_final"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579065411138-bpv9relh9levn7mm25s6vcks41o5ktrb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn0x2fZSyjyRVk08lhrJ2-jm3sob8K_70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579065411138-bpv9relh9levn7mm25s6vcks41o5ktrb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
