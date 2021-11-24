@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'telaPrincipal.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  
-  runApp(    
+
+  runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'TraduApp',
@@ -29,25 +28,21 @@ class LoginPage extends StatefulWidget {
 }
 
 // Para controlar se o usuário faz o login ou cadastro
-enum FormType {
-  login,
-  register
-}
+enum FormType { login, register }
 
 // Para enviar o nome do usuário para a tela Home
-class Infos{
+class Infos {
   String username;
   Infos(this.username);
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   var username = TextEditingController();
   // final TextEditingController _usernameFilter = TextEditingController();
   // final TextEditingController _passwordFilter = TextEditingController();
   // String _username = "";
   // String _password = "";
-  FormType _form = FormType.login; 
+  FormType _form = FormType.login;
 
   // _LoginPageState() {
   //   _usernameFilter.addListener(_usernameListen);
@@ -71,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
   // }
 
   // Troca dos campos de login e registro
-  void _formChange () async {
+  void _formChange() async {
     setState(() {
       if (_form == FormType.register) {
         _form = FormType.login;
@@ -86,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-           color: Colors.brown.shade100,
+          color: Colors.brown.shade100,
         ),
         padding: EdgeInsets.all(50.0),
         child: Column(
@@ -104,19 +99,20 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(left:0, top:0, right:0, bottom:0),
-            child: Image.asset("images/translate.png")
-          ),
+              margin: EdgeInsets.only(left: 0, top: 0, right: 0, bottom: 0),
+              child: Image.asset("images/translate.png")),
           SizedBox(height: 20),
           Text('TraduApp',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
-              )
-          ),
+              )),
           SizedBox(height: 20),
-          makeInput(controllerword: username, label: "Nome de Usuário:",obsureText: false),
-          makeInput(label: "Senha:",obsureText: true),
+          makeInput(
+              controllerword: username,
+              label: "Nome de Usuário:",
+              obsureText: false),
+          makeInput(label: "Senha:", obsureText: true),
         ],
       ),
     );
@@ -128,31 +124,25 @@ class _LoginPageState extends State<LoginPage> {
         margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         child: Column(
           children: <Widget>[
-
             // ------------------- BOTÃO LOGIN -------------------------------------
             ElevatedButton(
-              child: Text('Login'),
-              onPressed: (){
-                setState(() {
-
+                child: Text('Login'),
+                onPressed: () {
+                  setState(() {
                     var obj = Infos(
-                      username.text, 
+                      username.text,
                     );
 
-                    Navigator.pushNamed(
-                      context, 
-                      't2',
-                      arguments: obj
-                    );
-                    
-                    _loginPressed; 
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade800,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              )
-            ),
+                    Navigator.pushNamed(context, 't2', arguments: obj);
+
+                    _loginPressed;
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey.shade800,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                )),
             // ------------------- FIM DBOTÃO LOGIN -------------------------------------
             SizedBox(height: 20),
             TextButton(
@@ -173,13 +163,13 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: <Widget>[
             ElevatedButton(
-              child: Text('Crie uma conta!'),
-              onPressed: _createAccountPressed,
-              style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade800,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              )
-            ),
+                child: Text('Crie uma conta!'),
+                onPressed: _createAccountPressed,
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey.shade800,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                )),
             SizedBox(height: 20),
             TextButton(
               child: Text('Já possui conta? Clique aqui para fazer o login.'),
@@ -193,17 +183,17 @@ class _LoginPageState extends State<LoginPage> {
 
   // --------- -------------------------------- ----------------------
 
-  void _loginPressed () {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>TelaPrincipal()));
+  void _loginPressed() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => TelaPrincipal()));
   }
 
-  void _createAccountPressed () {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Register()));
+  void _createAccountPressed() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => Register()));
   }
 
-  void _passwordReset () {
-    
-  }
+  void _passwordReset() {}
 }
 
 // ---------------------------- TELA DE SIGNUP / CADASTRO DE NOVO USUARIO ----------------------------------
@@ -216,7 +206,6 @@ class Register extends StatefulWidget {
 enum Sexo { masculino, feminino }
 
 class _RegisterState extends State<Register> {
-
   Sexo? _character = Sexo.masculino;
   var _checkbox = false;
   var username = TextEditingController();
@@ -224,9 +213,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.brown.shade100,
-      
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -241,15 +228,17 @@ class _RegisterState extends State<Register> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SizedBox(height: 20),
-                        Text (
-                          "Cadastre-se!", style: TextStyle(
+                        Text(
+                          "Cadastre-se!",
+                          style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(height: 20),
                         Text(
-                          "Preencha os dados abaixo para criar uma conta:",style: TextStyle(
+                          "Preencha os dados abaixo para criar uma conta:",
+                          style: TextStyle(
                             fontSize: 17,
                           ),
                         ),
@@ -257,20 +246,19 @@ class _RegisterState extends State<Register> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 40
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 40),
                       child: Column(
                         children: <Widget>[
-                          makeInput(controllerword: username, label: "Nome de Usuário:"),
+                          makeInput(
+                              controllerword: username,
+                              label: "Nome de Usuário:"),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text('Sexo:',
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.normal,
-                              )
-                            ),
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.normal,
+                                )),
                           ),
                           ListTile(
                             title: const Text('Masculino'),
@@ -295,9 +283,10 @@ class _RegisterState extends State<Register> {
                                 });
                               },
                             ),
-                          ),                             
-                          makeInput(label: "Senha:",obsureText: false),
-                          makeInput(label: "Confirme sua Senha:",obsureText: false),
+                          ),
+                          makeInput(label: "Senha:", obsureText: false),
+                          makeInput(
+                              label: "Confirme sua Senha:", obsureText: false),
                           Row(
                             children: [
                               Checkbox(
@@ -308,39 +297,36 @@ class _RegisterState extends State<Register> {
                                   });
                                 },
                               ),
-                              Text('Concordo com os termos de uso deste aplicativo.'),
+                              Text(
+                                  'Concordo com os termos de uso deste aplicativo.'),
                             ],
-                          ),                          
+                          ),
                         ],
                       ),
                     ),
                     SizedBox(height: 30),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(                        
+                      child: Container(
                         child: ElevatedButton(
-                          child: Text('Registrar'),
-                          onPressed: (){
-                            setState(() {
-
+                            child: Text('Registrar'),
+                            onPressed: () {
+                              setState(() {
                                 var obj = Infos(
-                                  username.text, 
+                                  username.text,
                                 );
 
-                                Navigator.pushNamed(
-                                  context, 
-                                  't2',
-                                  arguments: obj
-                                );
-                                
-                                _loginPressed; 
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.grey.shade800,
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                          )
-                        ),
+                                Navigator.pushNamed(context, 't2',
+                                    arguments: obj);
+
+                                _loginPressed;
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.grey.shade800,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 20),
+                            )),
                       ),
                     ),
                   ],
@@ -352,46 +338,45 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
-  
-  void _loginPressed () {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>TelaPrincipal()));
-  }
-  
-}
 
+  void _loginPressed() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => TelaPrincipal()));
+  }
+}
 // --------------------------------- Caixas de input -----------------------------------------------
 
-Widget makeInput({controllerword, label,obsureText = false}){
+Widget makeInput({controllerword, label, obsureText = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label,style:
-        TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-          color: Colors.black87
-        ),
+      Text(
+        label,
+        style: TextStyle(
+            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
       ),
-      SizedBox(height: 5,),
+      SizedBox(
+        height: 5,
+      ),
       TextField(
         controller: controllerword,
         obscureText: obsureText,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 10),
+          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              // color: Colors.grey[400],
-            ),
+                // color: Colors.grey[400],
+                ),
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide(
-              // color: Colors.grey[400]
-            )
-          ),
+              borderSide: BorderSide(
+                  // color: Colors.grey[400]
+                  )),
         ),
       ),
-      SizedBox(height: 20,)
+      SizedBox(
+        height: 20,
+      )
     ],
   );
-  
 }
