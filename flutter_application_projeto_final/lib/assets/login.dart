@@ -39,8 +39,9 @@ class Infos {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var username = TextEditingController();
-  
+  var txtEmail = TextEditingController();
+  var txtSenha = TextEditingController();
+  bool isLoading = false;  
   FormType _form = FormType.login;
 
   // Troca dos campos de login e registro
@@ -87,10 +88,15 @@ class _LoginPageState extends State<LoginPage> {
               )),
           SizedBox(height: 20),
           makeInput(
-              controllerword: username,
-              label: "Nome de Usuário:",
-              obsureText: false),
-          makeInput(label: "Senha:", obsureText: true),
+              controllerword: txtEmail,
+              label: "E-mail:",
+              obsureText: false
+          ),
+          makeInput(
+              controllerword: txtSenha,
+              label: "Senha:", 
+              obsureText: true
+          ),
         ],
       ),
     );
@@ -107,14 +113,14 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text('Login'),
                 onPressed: () {
                   setState(() {
-                    var obj = Infos(
-                      username.text,
-                    );
+                    isLoading = true;
+                    // var obj = Infos(
+                    //   username.text,
+                    // );
 
-                    Navigator.pushNamed(context, 't2', arguments: obj);
-
-                    _loginPressed;
+                    // Navigator.pushNamed(context, 't2', arguments: obj);                    
                   });
+                  login(txtEmail.text, txtSenha.text);
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.grey.shade800,
@@ -161,10 +167,10 @@ class _LoginPageState extends State<LoginPage> {
 
   // --------- -------------------------------- ----------------------
 
-  void _loginPressed() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => TelaPrincipal()));
-  }
+  // void _loginPressed() {
+  //   Navigator.of(context)
+  //       .push(MaterialPageRoute(builder: (context) => TelaPrincipal()));
+  // }
 
   void _createAccountPressed() {
     Navigator.of(context)
@@ -172,6 +178,36 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _passwordReset() {}
+
+  void login(email, senha) {
+      FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: senha)
+          .then((value) {
+        // Navigator.pushReplacementNamed(context, '/t2');
+        Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => TelaPrincipal()));
+      }).catchError((erro) {
+        if (erro.code == 'user-not-found') {
+          exibirMensagem('ERRO: Usuário não encontrado.');
+        } else if (erro.code == 'wrong-password') {
+          exibirMensagem('ERRO: Senha incorreta.');
+        } else if (erro.code == 'invalid-email') {
+          exibirMensagem('ERRO: Email inválido.');
+        } else {
+          exibirMensagem('ERRO: ${erro.message}.');
+        }
+      });
+
+  }
+
+  void exibirMensagem(msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 }
 
 // ---------------------------- TELA DE SIGNUP / CADASTRO DE NOVO USUARIO ----------------------------------

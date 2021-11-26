@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+// import 'login.dart';
 
 class HomePage extends StatelessWidget {
   
@@ -7,14 +7,14 @@ class HomePage extends StatelessWidget {
    @override
  Widget build(BuildContext context) {
 
-   final Infos obj = ModalRoute.of(context)!.settings.arguments as Infos;
+  //  final Infos obj = ModalRoute.of(context)!.settings.arguments as Infos;
 
    return Container( 
       padding: EdgeInsets.only(top:50, right: 30, bottom: 30, left: 30),
       color: Colors.brown.shade100,      
       child: Column(          
           children: [
-            Text('Olá, ' + obj.username, 
+            Text('Olá, ', 
               style: TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
