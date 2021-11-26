@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'homePage.dart';
 import 'aboutPage.dart';
@@ -57,9 +58,10 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: () {
-              
+            icon: Icon(Icons.logout_outlined),
+            onPressed: () async {
+              FirebaseAuth.instance.signOut();
+              Navigator.pop(context);
             },
           ),
         ]
