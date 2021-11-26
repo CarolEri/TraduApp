@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'telaPrincipal.dart';
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -38,32 +40,8 @@ class Infos {
 
 class _LoginPageState extends State<LoginPage> {
   var username = TextEditingController();
-  // final TextEditingController _usernameFilter = TextEditingController();
-  // final TextEditingController _passwordFilter = TextEditingController();
-  // String _username = "";
-  // String _password = "";
+  
   FormType _form = FormType.login;
-
-  // _LoginPageState() {
-  //   _usernameFilter.addListener(_usernameListen);
-  //   _passwordFilter.addListener(_passwordListen);
-  // }
-
-  // void _usernameListen() {
-  //   if (_usernameFilter.text.isEmpty) {
-  //     _username = "";
-  //   } else {
-  //     _username = _usernameFilter.text;
-  //   }
-  // }
-
-  // void _passwordListen() {
-  //   if (_passwordFilter.text.isEmpty) {
-  //     _password = "";
-  //   } else {
-  //     _password = _passwordFilter.text;
-  //   }
-  // }
 
   // Troca dos campos de login e registro
   void _formChange() async {
@@ -208,7 +186,9 @@ enum Sexo { masculino, feminino }
 class _RegisterState extends State<Register> {
   Sexo? _character = Sexo.masculino;
   var _checkbox = false;
-  var username = TextEditingController();
+  var txtNome = TextEditingController();
+  var txtEmail = TextEditingController();
+  var txtSenha = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -250,7 +230,7 @@ class _RegisterState extends State<Register> {
                       child: Column(
                         children: <Widget>[
                           makeInput(
-                              controllerword: username,
+                              controllerword: txtNome,
                               label: "Nome de Usuário:"),
                           Align(
                             alignment: Alignment.centerLeft,
@@ -284,9 +264,16 @@ class _RegisterState extends State<Register> {
                               },
                             ),
                           ),
-                          makeInput(label: "Senha:", obsureText: false),
                           makeInput(
-                              label: "Confirme sua Senha:", obsureText: false),
+                            controllerword: txtEmail,
+                            label: "E-mail:", 
+                            obsureText: false
+                          ),
+                          makeInput(
+                            controllerword: txtSenha,
+                            label: "Senha:", 
+                            obsureText: false
+                          ),
                           Row(
                             children: [
                               Checkbox(
@@ -311,16 +298,11 @@ class _RegisterState extends State<Register> {
                         child: ElevatedButton(
                             child: Text('Registrar'),
                             onPressed: () {
-                              setState(() {
-                                var obj = Infos(
-                                  username.text,
-                                );
-
-                                Navigator.pushNamed(context, 't2',
-                                    arguments: obj);
-
-                                _loginPressed;
-                              });
+                              criarConta(
+                                txtNome.text,
+                                txtEmail.text,
+                                txtSenha.text,
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               primary: Colors.grey.shade800,
@@ -342,6 +324,34 @@ class _RegisterState extends State<Register> {
   void _loginPressed() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => TelaPrincipal()));
+  }
+
+  void criarConta(nome, email, senha) {
+
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: senha)
+        .then((value) {
+            exibirMensagem('Usuário criado com sucesso!');
+            Navigator.pop(context);
+        }).catchError((erro){
+          if (erro.code == 'email-already-in-use'){
+            exibirMensagem('ERRO: O email informado está em uso.');
+          }else if (erro.code == 'invalid-email'){
+            exibirMensagem('ERRO: Email inválido.');
+          }else{
+            exibirMensagem('ERRO: ${erro.message}');
+          }
+        });
+
+  }
+
+  void exibirMensagem(msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 }
 // --------------------------------- Caixas de input -----------------------------------------------
