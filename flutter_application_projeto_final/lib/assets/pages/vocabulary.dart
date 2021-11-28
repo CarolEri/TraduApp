@@ -9,8 +9,7 @@ class VocabularyPage extends StatefulWidget {
 }
 
 class _VocabularyPageState extends State<VocabularyPage> {
-
-  var lista = [];
+  late CollectionReference vocabulario;
   var palavraEstrangeira = TextEditingController();
   var significado = TextEditingController();
 
@@ -26,11 +25,38 @@ class _VocabularyPageState extends State<VocabularyPage> {
 
   @override
   void initState() {    
-    lista.add("春: Primavera");
-    lista.add("犬: Cachorro");
-    lista.add("料理: Comida");
-    lista.add("願い: Desejo");
     super.initState();
+    vocabulario = FirebaseFirestore.instance.collection('vocabulario');
+  }
+
+  exibirItemColecao(item){
+
+    String palavra = item.data()['palavra'];
+    String significado = item.data()['significado'];
+
+    return Card(
+      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      color: Colors.grey.shade100,
+
+      elevation: 20,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child:  ListTile(
+        title: Text(palavra + ': ' + significado, style: const TextStyle(fontSize: 20),),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete),
+          onPressed: (){            
+            // APAGAR um documento          
+            vocabulario.doc(item.id).delete();
+          },
+        ),
+
+        onTap: (){
+          Navigator.pushNamed(context, '/cadastro', arguments: item.id);
+        },
+      )
+    );
   }
 
   @override
@@ -45,72 +71,38 @@ class _VocabularyPageState extends State<VocabularyPage> {
     }
     
     return Scaffold(
-      
-      body: Container(
-        padding: EdgeInsets.all(30),
-        color: Colors.brown.shade100,
-        // ---------------- ListView ------------------------------------------------
+      backgroundColor: Colors.brown.shade100,
+      body: StreamBuilder<QuerySnapshot>(
         
-        child: ListView.builder(
-          //quantidade de elementos da lista
-          itemCount: lista.length,
+        //fonte de dados (coleção)
+        stream: vocabulario.snapshots(),
 
-          itemBuilder: (context, index) {
+        //exibir os dados retornados
+        builder: (context, snapshot){
 
-            return Card(
-              margin: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-              color: Colors.grey.shade100,
+          //verificar o estado da conexão
+          switch(snapshot.connectionState){
 
-              elevation: 20,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: ListTile(
+            case ConnectionState.none:
+              return const Center(child: Text('Não foi possível conectar ao Firestore'),);
 
-                title: Text(
-                  lista[index],
-                  style: TextStyle(fontSize: 20),
-                ),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete_outline),
-                  onPressed: () async {
-                    await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return SimpleDialog(
-                          title: const Text('Tem certeza que deseja remover esta palavra?'),
-                          children: <Widget>[
-                            SimpleDialogOption(
-                              onPressed: () { 
-                                //remover um item da lista
-                                Navigator.pop(context);
-                                setState(() {
-                                  lista.removeAt(index);
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: Text('Palavra removida com sucesso!'),
-                                    duration: Duration(seconds: 2),
-                                  ));
-                                }); 
-                              },
-                              child: const Text('Sim'),                              
-                            ),
-                            SimpleDialogOption(
-                              onPressed: () { Navigator.pop(context); },
-                              child: const Text('Não'),
-                            ),
-                          ],
-                        );
-                      }
-                    );
-                  }                  
-                ),
-              ),
-            );
-          },
-        ),
+            case ConnectionState.waiting:
+              return const Center(child: CircularProgressIndicator(),);
+
+            //se os dados foram recebidos com sucesso
+            default:
+              final dados = snapshot.requireData;
+              return ListView.builder(
+                itemCount: dados.size,
+                itemBuilder: (context, index){
+                  return exibirItemColecao(dados.docs[index]);
+                }
+              );
+          }
+        }
       ),
 
-      // ----------------- Adicionar novas tarefas -----------------------------      
+      // ----------------- Adicionar novos cards -----------------------------      
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.grey.shade800,
         child: Icon(Icons.add),
@@ -119,7 +111,6 @@ class _VocabularyPageState extends State<VocabularyPage> {
             context: context,
             builder: (context) {
               return AlertDialog(
-
                 title: Text(
                   'Adicione uma nova palavra:',
                   style: TextStyle(fontSize: 16),
@@ -183,11 +174,9 @@ class _VocabularyPageState extends State<VocabularyPage> {
     );
   }
 
-  void addVocabulary(){
-    
+  void addVocabulary(){    
     var msg = '';
     if (palavraEstrangeira.text.isNotEmpty && significado.text.isNotEmpty) {
-      lista.add(palavraEstrangeira.text + ': ' + significado.text);
       palavraEstrangeira.clear();
       significado.clear();
       msg = 'Palavra adicionada com sucesso!';
