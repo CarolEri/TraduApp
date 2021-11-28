@@ -167,11 +167,6 @@ class _LoginPageState extends State<LoginPage> {
 
   // --------- -------------------------------- ----------------------
 
-  // void _loginPressed() {
-  //   Navigator.of(context)
-  //       .push(MaterialPageRoute(builder: (context) => TelaPrincipal()));
-  // }
-
   void _createAccountPressed() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => Register()));
@@ -237,129 +232,120 @@ class _RegisterState extends State<Register> {
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: [                  
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(height: 20),
-                        Text(
-                          "Cadastre-se!",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          "Preencha os dados abaixo para criar uma conta:",
-                          style: TextStyle(
-                            fontSize: 17,
-                          ),
-                        ),
-                        SizedBox(height: 20)
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40),
-                      child: Column(
-                        children: <Widget>[
-                          makeInput(
-                              controllerword: txtNome,
-                              label: "Nome de Usuário:"),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Sexo:',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.normal,
-                                )),
-                          ),
-                          ListTile(
-                            title: const Text('Masculino'),
-                            leading: Radio<Sexo>(
-                              value: Sexo.masculino,
-                              groupValue: _character,
-                              onChanged: (Sexo? value) {
-                                setState(() {
-                                  _character = value;
-                                });
-                              },
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text('Feminino'),
-                            leading: Radio<Sexo>(
-                              value: Sexo.feminino,
-                              groupValue: _character,
-                              onChanged: (Sexo? value) {
-                                setState(() {
-                                  _character = value;
-                                });
-                              },
-                            ),
-                          ),
-                          makeInput(
-                            controllerword: txtEmail,
-                            label: "E-mail:", 
-                            obsureText: false
-                          ),
-                          makeInput(
-                            controllerword: txtSenha,
-                            label: "Senha:", 
-                            obsureText: false
-                          ),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: _checkbox,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _checkbox = !_checkbox;
-                                  });
-                                },
-                              ),
-                              Text(
-                                  'Concordo com os termos de uso deste aplicativo.'),
-                            ],
-                          ),
-                        ],
+                    SizedBox(height: 20),
+                    Text(
+                      "Cadastre-se!",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 30),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(
-                        child: ElevatedButton(
-                            child: Text('Registrar'),
-                            onPressed: () {
-                              criarConta(
-                                txtNome.text,
-                                txtEmail.text,
-                                txtSenha.text,
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.grey.shade800,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 30, vertical: 20),
-                            )),
+                    SizedBox(height: 20),
+                    Text(
+                      "Preencha os dados abaixo para criar uma conta:",
+                      style: TextStyle(
+                        fontSize: 17,
                       ),
                     ),
+                    SizedBox(height: 20)
                   ],
                 ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40),
+                  child: Column(
+                    children: <Widget>[
+                      makeInput(
+                          controllerword: txtNome,
+                          label: "Nome de Usuário:"),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Sexo:',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.normal,
+                            )),
+                      ),
+                      ListTile(
+                        title: const Text('Masculino'),
+                        leading: Radio<Sexo>(
+                          value: Sexo.masculino,
+                          groupValue: _character,
+                          onChanged: (Sexo? value) {
+                            setState(() {
+                              _character = value;
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Feminino'),
+                        leading: Radio<Sexo>(
+                          value: Sexo.feminino,
+                          groupValue: _character,
+                          onChanged: (Sexo? value) {
+                            setState(() {
+                              _character = value;
+                            });
+                          },
+                        ),
+                      ),
+                      makeInput(
+                        controllerword: txtEmail,
+                        label: "E-mail:", 
+                        obsureText: false
+                      ),
+                      makeInput(
+                        controllerword: txtSenha,
+                        label: "Senha:", 
+                        obsureText: false
+                      ),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: _checkbox,
+                            onChanged: (value) {
+                              setState(() {
+                                _checkbox = !_checkbox;
+                              });
+                            },
+                          ),
+                          Text(
+                              'Concordo com os termos de uso deste aplicativo.'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 30),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    child: ElevatedButton(
+                        child: Text('Registrar'),
+                        onPressed: () {
+                          criarConta(
+                            txtNome.text,
+                            txtEmail.text,
+                            txtSenha.text,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey.shade800,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 20),
+                        )),
+                  ),
+                ),                                 
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  void _loginPressed() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => TelaPrincipal()));
   }
 
   void criarConta(nome, email, senha) {
