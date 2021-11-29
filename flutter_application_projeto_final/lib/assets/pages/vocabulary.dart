@@ -10,15 +10,14 @@ class VocabularyPage extends StatefulWidget {
 
 class _VocabularyPageState extends State<VocabularyPage> {
   late CollectionReference vocabulario;
-  var palavraEstrangeira = TextEditingController();
+  var palavra = TextEditingController();
   var significado = TextEditingController();
 
-  // --------------- RETORNAR um ÚNICO DOCUMENTO a partir do ID ---------------
-  
+  // --------------- RETORNAR um ÚNICO DOCUMENTO a partir do ID ---------------  
   getDocumentById(id) async{
     await FirebaseFirestore.instance.collection('vocabulario')
       .doc(id).get().then((doc) {
-        palavraEstrangeira.text = doc.get('palavra');
+        palavra.text = doc.get('palavra');
         significado.text = doc.get('significado');
       });
   }
@@ -33,6 +32,15 @@ class _VocabularyPageState extends State<VocabularyPage> {
 
     String palavra = item.data()['palavra'];
     String significado = item.data()['significado'];
+    var newPalavra = TextEditingController();
+    var newSignificado = TextEditingController();
+    var id = ModalRoute.of(context)?.settings.arguments;
+
+    if (id != null){
+      if (palavra.isEmpty && significado.isEmpty){
+        getDocumentById(id);
+      }
+    }
 
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -47,13 +55,64 @@ class _VocabularyPageState extends State<VocabularyPage> {
         trailing: IconButton(
           icon: const Icon(Icons.delete),
           onPressed: (){            
-            // APAGAR um documento          
+            // ------------------ APAGAR um documento ------------------        
             vocabulario.doc(item.id).delete();
           },
         ),
 
         onTap: (){
-          Navigator.pushNamed(context, '/cadastro', arguments: item.id);
+          // ------------------EDITAR O DOCUMENTO ------------------
+          showDialog(
+            context: context,
+            builder: (context) {
+              
+            return AlertDialog(
+              title: Text(
+                'Edite o card:',
+                style: TextStyle(fontSize: 16),
+              ),
+              content: SingleChildScrollView( 
+              child: ListBody(
+                children: [                      
+                  TextField(
+                    controller: newPalavra,
+                    style: TextStyle(fontSize: 14), 
+                    decoration: InputDecoration(                            
+                      hintText: palavra
+                    ),                   
+                  ),
+                  TextField(
+                    controller: newSignificado,
+                    style: TextStyle(fontSize: 14),   
+                    decoration: InputDecoration(                            
+                      hintText: significado
+                    ),                      
+                  )
+                ]
+              )                    
+            ),                
+            actions: [
+              TextButton(
+                child: Text('ok'),
+                onPressed: () {
+                  // addOrEdit(item.id);
+                  FirebaseFirestore.instance.collection('vocabulario').doc(item.id.toString()).set({
+                    'palavra': newPalavra.text,
+                    'significado': newSignificado.text,
+                  });
+                } 
+                
+              ),
+              TextButton(
+                child: Text('Cancelar'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+            );            
+            }
+          );
         },
       )
     );
@@ -65,7 +124,7 @@ class _VocabularyPageState extends State<VocabularyPage> {
     var id = ModalRoute.of(context)?.settings.arguments;
 
     if (id != null){
-      if (palavraEstrangeira.text.isEmpty && significado.text.isEmpty){
+      if (palavra.text.isEmpty && significado.text.isEmpty){
         getDocumentById(id);
       }
     }
@@ -117,10 +176,9 @@ class _VocabularyPageState extends State<VocabularyPage> {
                 ),
                 content: SingleChildScrollView( 
                   child: ListBody(
-                    children: [
-                      
+                    children: [                      
                       TextField(
-                        controller: palavraEstrangeira,
+                        controller: palavra,
                         style: TextStyle(fontSize: 14), 
                         decoration: InputDecoration(                            
                           hintText: 'Insira aqui a palavra estrangeira'
@@ -141,23 +199,11 @@ class _VocabularyPageState extends State<VocabularyPage> {
                   TextButton(
                     child: Text('ok'),
                     onPressed: () {
-
-                        if (id == null){                            
-                          // --------------- ADICIONAR um NOVO DOCUMENTO ---------------                            
-                          FirebaseFirestore.instance.collection('vocabulario').add({
-                            'palavra': palavraEstrangeira.text,
-                            'significado': significado.text,
-                          });
-                          addVocabulary();
-                        }
-                        else {                          
-                          // --------------- ATUALIZAR UM DOCUMENTO EXISTENTE ---------------                            
-                          FirebaseFirestore.instance.collection('vocabulario').doc(id.toString()).set({
-                            'palavra': palavraEstrangeira.text,
-                            'significado': significado.text,
-                          });
-                          addVocabulary();
-                        } 
+                        FirebaseFirestore.instance.collection('vocabulario').add({
+                          'palavra': palavra.text,
+                          'significado': significado.text,
+                        });
+                        showVocabMessages();
                     },
                   ),
                   TextButton(
@@ -174,10 +220,10 @@ class _VocabularyPageState extends State<VocabularyPage> {
     );
   }
 
-  void addVocabulary(){    
+  void showVocabMessages(){    
     var msg = '';
-    if (palavraEstrangeira.text.isNotEmpty && significado.text.isNotEmpty) {
-      palavraEstrangeira.clear();
+    if (palavra.text.isNotEmpty && significado.text.isNotEmpty) {
+      palavra.clear();
       significado.clear();
       msg = 'Palavra adicionada com sucesso!';
     }
