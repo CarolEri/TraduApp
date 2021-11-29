@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 
@@ -8,9 +9,10 @@ class TextTranslator extends StatefulWidget {
 
 class _TextTranslatorState extends State<TextTranslator> {
 
-  TextEditingController textEditingController = TextEditingController();
+  late CollectionReference historico;
+  var txtToTranslate = TextEditingController();
   GoogleTranslator translator = GoogleTranslator();
-  var resultadoTraducao;
+  var txtTranslated;
   //String dropdownValue;
 
   static const Map<String, String> language = {
@@ -57,10 +59,7 @@ class _TextTranslatorState extends State<TextTranslator> {
             SizedBox(height: 40),
             TextFormField(
                 style: TextStyle(fontSize: 24),
-                controller: textEditingController,
-                onTap: () {
-                  //trans();
-                },
+                controller: txtToTranslate,
                 decoration: InputDecoration(
                     labelText: 'Digite aqui',
                     labelStyle: TextStyle(fontSize: 15)
@@ -107,7 +106,11 @@ class _TextTranslatorState extends State<TextTranslator> {
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
               ),                    
-              onPressed: () {                
+              onPressed: () {     
+                FirebaseFirestore.instance.collection('historico').add({
+                  'textoParaTraduzir': txtToTranslate.text,
+                  // 'textoTrauzido': txtTranslated.text
+                });                       
               },
               child: Text("Traduzir"),
             ),
@@ -130,7 +133,7 @@ class _TextTranslatorState extends State<TextTranslator> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                resultadoTraducao == null ? "Nenhuma tradução encontrada." : resultadoTraducao.toString(),
+                txtTranslated == null ? "Nenhuma tradução encontrada." : txtTranslated.toString(),
                 style: TextStyle( fontSize: 17,
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w500,
