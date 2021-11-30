@@ -238,7 +238,7 @@ class _RegisterState extends State<Register> {
                 fontSize: 17,
               ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             makeInput(
               controllerword: txtNome,
               label: "Nome de Usuário:"
@@ -277,7 +277,7 @@ class _RegisterState extends State<Register> {
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey.shade800,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 30, vertical: 20),
+                  horizontal: 20, vertical: 20),
               )
             ),
           ]

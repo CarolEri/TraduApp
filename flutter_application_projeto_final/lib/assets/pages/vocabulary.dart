@@ -100,6 +100,7 @@ class _VocabularyPageState extends State<VocabularyPage> {
                     'palavra': newPalavra.text,
                     'significado': newSignificado.text,
                   });
+                  Navigator.pop(context);
                 } 
                 
               ),
