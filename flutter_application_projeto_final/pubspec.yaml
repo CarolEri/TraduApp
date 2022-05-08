@@ -26,6 +26,7 @@ dependencies:
   image_picker:
   translator:
   flip_card:
+  image_picker_web: ^2.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -34,6 +35,9 @@ dependencies:
   firebase_core: ^1.10.0
   cloud_firestore: ^3.1.0
   firebase_auth: ^3.2.0
+  image_picker_for_web: ^2.1.6
+  path_provider: ^2.0.1
+  flutter_tesseract_ocr: ^0.4.19
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +55,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    # - lib/assets/tessdata
 
   # To add assets to your application, add an assets section, like this:
   # assets:
