@@ -11,18 +11,17 @@ class ImageTranslator extends StatefulWidget {
 }
 
 class _ImageTranslatorState extends State<ImageTranslator> {
-  /// Variables
-  // File? imageFile;
+  
   Image? image;
   var resultadoTraducao;
   String _extractText = '';
   String _translatedText = '';
 
-  static const Map<String, String> language = {
-    "Inglês": "en",
-    "Japonês": "jp",
-    "Coreano": "kr",
-  };
+  // static const Map<String, String> language = {
+  //   "Inglês": "en",
+  //   "Japonês": "jp",
+  //   "Coreano": "kr",
+  // };
 
   /// Widget
   @override
@@ -36,114 +35,36 @@ class _ImageTranslatorState extends State<ImageTranslator> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Tradutor para Imagens',
-                        style: TextStyle(
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    SizedBox(height: 20),
-                    Text(
-                        'Utilize os botões abaixo para selecionar uma imagem da sua Galeria ou tire uma nova imagem a partir da câmera do seu smartphone:',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.normal,
-                        )),
+                    Text('Tradutor para Imagens', style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
                     SizedBox(height: 60),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.grey.shade800,
-                      ),
+                    Text('Utilize o botão abaixo para selecionar uma imagem da sua Galeria que contenha um texto em inglês para tradução:', style: TextStyle(fontSize: 17, fontWeight: FontWeight.normal)),
+                    SizedBox(height: 60),
+                    ElevatedButton(style: ElevatedButton.styleFrom(primary: Colors.grey.shade800),
                       onPressed: () {
                         _getFromGallery();
                       },
-                      child: Text("Escolha uma imagem da Galeria"),
+                      child: Text("Escolher uma imagem da Galeria"),
                     ),
-                    SizedBox(height: 40),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.grey.shade800,
-                      ),
-                      onPressed: () {
-                        _getFromCamera();
-                      },
-                      child: Text("Tire uma foto com a Câmera"),
-                    ),
-                    SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text("Selecione um idioma aqui: "),
-                        DropdownButton<String>(
-                          //value: dropdownValue,
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(color: Colors.grey.shade800),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.grey.shade800,
-                          ),
-                          onChanged: (newValue) {
-                            setState(() {
-                              // dropdownValue = newValue!;
-                              // trans();
-                            });
-                          },
-                          items: language
-                              .map((string, value) {
-                                return MapEntry(
-                                  string,
-                                  DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(string),
-                                  ),
-                                );
-                              })
-                              .values
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Text('Texto Traduzido:',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    SizedBox(height: 10),
-                    Container(
-                        height: 130,
-                        width: double.infinity,
-                        child: Card(
-                          color: Colors.grey.shade100,
-                          shadowColor: Colors.black,
-                          elevation: 20,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                              resultadoTraducao == null
-                                  ? "Nenhuma tradução encontrada."
-                                  : resultadoTraducao.toString(),
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              textAlign: TextAlign.center),
-                        )),
+                    SizedBox(height: 40)
                   ],
                 ),
               )
             : Container(
                 child: Column(children: [
-                  Container(child: image),
-                  Text(
-                    _extractText,
-                  ),
-                  Text(_translatedText)
+                  Text('Imagem selecionada:', style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 20),
+                  Container(child: image, width: 300, height: 150),
+                  SizedBox(height: 40),
+                  Text('Texto extraído:', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 20),
+                  Text(_extractText, textAlign: TextAlign.center),
+                  SizedBox(height: 40),
+                  Text('Tradução:', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                  SizedBox(height: 20),
+                  Text(_translatedText, textAlign: TextAlign.center)
                 ]),
-              ));
+              )
+            );
   }
 
   /// Get from gallery
@@ -157,7 +78,6 @@ class _ImageTranslatorState extends State<ImageTranslator> {
     } else {
       pickedImage = Image.file(File(pickedFile!.path));
     }
-    // _extractText = await TesseractOcr.extractText(pickedFile.path);
 
     _extractText = await FlutterTesseractOcr.extractText(pickedFile.path,
         language: 'eng',
@@ -169,22 +89,10 @@ class _ImageTranslatorState extends State<ImageTranslator> {
     final translator = GoogleTranslator();
     final input = _extractText;
     _translatedText =
-        (await translator.translate(input, from: 'auto', to: 'en')).text;
+        (await translator.translate(input, from: 'en', to: 'pt')).text;
 
     setState(() {
       image = pickedImage;
-    });
-  }
-
-  /// Get from Camera
-  _getFromCamera() async {
-    // PickedFile pickedFile = await ImagePicker().pickImage(
-    //   source: ImageSource.camera,
-    //   maxWidth: 1800,
-    //   maxHeight: 1800,
-    // ) as PickedFile;
-    setState(() {
-      // imageFile = File(pickedFile.path);
     });
   }
 }
